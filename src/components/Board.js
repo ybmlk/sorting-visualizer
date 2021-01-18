@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import bubbleSort from '../algorithms/bubbleSort';
+import mergeSort from '../algorithms/mergeSort';
 
 const NUM_OF_BARS = 100;
 const MIN_HEIGHT = 10;
@@ -36,11 +37,17 @@ function Board() {
     }
   };
 
+  const handleMergeSort = () => {
+    setBarArray(mergeSort(barArray.slice()));
+    
+  };
+
   return (
     <div
       style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
     >
-      <button onClick={handleBubbleSort}>bubbleSort</button>
+      <button onClick={handleBubbleSort}>Bubble Sort</button>
+      <button onClick={handleMergeSort}>Merge Sort</button>
       <div
         style={{
           display: 'flex',

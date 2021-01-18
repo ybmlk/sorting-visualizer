@@ -16,7 +16,8 @@ function bubbleSort(arr) {
     }
     if (noSwap) break;
   }
-  return animation;
+  // return animation;
+  return arr;
 }
 
 export default bubbleSort;
