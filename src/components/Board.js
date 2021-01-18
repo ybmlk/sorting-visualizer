@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import bubbleSort from '../algorithms/bubbleSort';
 import mergeSort from '../algorithms/mergeSort';
 import quickSort from '../algorithms/quickSort';
+import heapSort from '../algorithms/heapSort';
 
 const NUM_OF_BARS = 200;
 const MIN_HEIGHT = 5;
@@ -87,7 +88,28 @@ function Board() {
         }, 50);
       }, i * 50);
     }
-    // setBarArray(quickSort(barArray.slice()));
+  };
+
+  // todo: color bars that are being compared
+  // todo: color sorted bars
+  const handleHeapSort = () => {
+    const animation = heapSort(barArray.slice());
+    setBarArray(barArray.sort((a, b) => a - b));
+    for (let i = 0; i < animation.length; i++) {
+      const barDivs = document.querySelectorAll('.array-bar');
+      const [barOne, barTwo] = animation[i];
+      setTimeout(() => {
+        const temp = barDivs[barOne].style.height;
+        barDivs[barOne].style.height = barDivs[barTwo].style.height;
+        barDivs[barTwo].style.height = temp;
+        barDivs[barOne].style.backgroundColor = 'rgba(78, 216, 96, 0.8)';
+        barDivs[barTwo].style.backgroundColor = 'rgba(219, 57, 57, 0.8)';
+        setTimeout(() => {
+          barDivs[barOne].style.backgroundColor = 'rgba(66, 134, 244, 0.8)';
+          barDivs[barTwo].style.backgroundColor = 'rgba(66, 134, 244, 0.8)';
+        }, 30);
+      }, i * 30);
+    }
   };
 
   return (
@@ -101,9 +123,10 @@ function Board() {
       }}
     >
       <div style={{ marginBottom: 40 }}>
-        <button onClick={handleBubbleSort}>Bubble Sort</button>
         <button onClick={handleMergeSort}>Merge Sort</button>
         <button onClick={handleQuickSort}>Quick Sort</button>
+        <button onClick={handleHeapSort}>Heap Sort</button>
+        <button onClick={handleBubbleSort}>Bubble Sort</button>
       </div>
       <div
         style={{
