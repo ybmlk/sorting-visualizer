@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import selectionSort from '../algorithms/selectionSort';
+import insertionSort from '../algorithms/insertionSort';
 import bubbleSort from '../algorithms/bubbleSort';
 import mergeSort from '../algorithms/mergeSort';
 import quickSort from '../algorithms/quickSort';
 import heapSort from '../algorithms/heapSort';
-import selectionSort from '../algorithms/selectionSort';
 
-const NUM_OF_BARS = 200;
+const NUM_OF_BARS = 50;
 const MIN_HEIGHT = 5;
 const MAX_HEIGHT = 550;
 
@@ -21,10 +22,9 @@ function Board() {
     setBarArray(newArray);
   }, []);
 
+  // todo: color bars that are being compared
   // todo: color sorted bars
-  const handleBubbleSort = () => {
-    const animation = bubbleSort(barArray.slice());
-    setBarArray(barArray.sort((a, b) => a - b));
+  const visualizeSwapping = (animation, speed) => {
     for (let i = 0; i < animation.length; i++) {
       const barDivs = document.querySelectorAll('.array-bar');
       const [barOne, barTwo] = animation[i];
@@ -37,9 +37,10 @@ function Board() {
         setTimeout(() => {
           barDivs[barOne].style.backgroundColor = 'rgba(66, 134, 244, 0.8)';
           barDivs[barTwo].style.backgroundColor = 'rgba(66, 134, 244, 0.8)';
-        }, 10);
-      }, i * 10);
+        }, speed);
+      }, i * speed);
     }
+    setBarArray(barArray.sort((a, b) => a - b));
   };
 
   // todo: color bars that are being compared
@@ -47,18 +48,17 @@ function Board() {
   const handleMergeSort = () => {
     const animation = mergeSort(barArray.slice());
     setBarArray(barArray.sort((a, b) => a - b));
+    const speed = 50;
     let k = 0;
+
     for (let i = 0; i < animation.length; i++) {
       const barDivs = document.querySelectorAll('.array-bar');
-      const [currBar, currHeight, currSpeed] = animation[i];
-      let speed = 50;
-      if (currSpeed !== 0) {
-        k++;
-      }
+      const [currBar, currHeight, noAnimation] = animation[i];
+      if (!noAnimation) k++;
 
       setTimeout(() => {
         barDivs[currBar].style.height = `${currHeight}px`;
-        if (currSpeed !== 0) {
+        if (!noAnimation) {
           barDivs[currBar].style.backgroundColor = 'rgba(219, 57, 57, 0.8)';
           setTimeout(() => {
             barDivs[currBar].style.backgroundColor = 'rgba(66, 134, 244, 0.8)';
@@ -68,71 +68,48 @@ function Board() {
     }
   };
 
-  // todo: color bars that are being compared
-  // todo: color sorted bars
+  const handleInsertionSort = () => {
+    const animation = insertionSort(barArray.slice());
+    setBarArray(barArray.sort((a, b) => a - b));
+    const speed = 50;
+    let k = 0;
+
+    for (let i = 0; i < animation.length; i++) {
+      const barDivs = document.querySelectorAll('.array-bar');
+      const [currBar, currHeight, noAnimation] = animation[i];
+      if (!noAnimation) k++;
+
+      setTimeout(() => {
+        barDivs[currBar].style.height = `${currHeight}px`;
+        if (!noAnimation) {
+          barDivs[currBar].style.backgroundColor = 'rgba(219, 57, 57, 0.8)';
+          setTimeout(() => {
+            barDivs[currBar].style.backgroundColor = 'rgba(66, 134, 244, 0.8)';
+          }, speed);
+        }
+      }, k * speed);
+    }
+  };
+
+  const handleBubbleSort = () => {
+    const animation = bubbleSort(barArray.slice());
+    visualizeSwapping(animation, 10);
+  };
+
   // todo: color the pivot
   const handleQuickSort = () => {
     const animation = quickSort(barArray.slice());
-    setBarArray(barArray.sort((a, b) => a - b));
-    for (let i = 0; i < animation.length; i++) {
-      const barDivs = document.querySelectorAll('.array-bar');
-      const [barOne, barTwo] = animation[i];
-      setTimeout(() => {
-        const temp = barDivs[barOne].style.height;
-        barDivs[barOne].style.height = barDivs[barTwo].style.height;
-        barDivs[barTwo].style.height = temp;
-        barDivs[barOne].style.backgroundColor = 'rgba(78, 216, 96, 0.8)';
-        barDivs[barTwo].style.backgroundColor = 'rgba(219, 57, 57, 0.8)';
-        setTimeout(() => {
-          barDivs[barOne].style.backgroundColor = 'rgba(66, 134, 244, 0.8)';
-          barDivs[barTwo].style.backgroundColor = 'rgba(66, 134, 244, 0.8)';
-        }, 50);
-      }, i * 50);
-    }
+    visualizeSwapping(animation, 60);
   };
 
-  // todo: color bars that are being compared
-  // todo: color sorted bars
   const handleHeapSort = () => {
     const animation = heapSort(barArray.slice());
-    setBarArray(barArray.sort((a, b) => a - b));
-    for (let i = 0; i < animation.length; i++) {
-      const barDivs = document.querySelectorAll('.array-bar');
-      const [barOne, barTwo] = animation[i];
-      setTimeout(() => {
-        const temp = barDivs[barOne].style.height;
-        barDivs[barOne].style.height = barDivs[barTwo].style.height;
-        barDivs[barTwo].style.height = temp;
-        barDivs[barOne].style.backgroundColor = 'rgba(78, 216, 96, 0.8)';
-        barDivs[barTwo].style.backgroundColor = 'rgba(219, 57, 57, 0.8)';
-        setTimeout(() => {
-          barDivs[barOne].style.backgroundColor = 'rgba(66, 134, 244, 0.8)';
-          barDivs[barTwo].style.backgroundColor = 'rgba(66, 134, 244, 0.8)';
-        }, 30);
-      }, i * 30);
-    }
+    visualizeSwapping(animation, 30);
   };
 
-  // todo: color bars that are being compared
-  // todo: color sorted bars
   const handleSelectionSort = () => {
     const animation = selectionSort(barArray.slice());
-    setBarArray(barArray.sort((a, b) => a - b));
-    for (let i = 0; i < animation.length; i++) {
-      const barDivs = document.querySelectorAll('.array-bar');
-      const [barOne, barTwo] = animation[i];
-      setTimeout(() => {
-        const temp = barDivs[barOne].style.height;
-        barDivs[barOne].style.height = barDivs[barTwo].style.height;
-        barDivs[barTwo].style.height = temp;
-        barDivs[barOne].style.backgroundColor = 'rgba(78, 216, 96, 0.8)';
-        barDivs[barTwo].style.backgroundColor = 'rgba(219, 57, 57, 0.8)';
-        setTimeout(() => {
-          barDivs[barOne].style.backgroundColor = 'rgba(66, 134, 244, 0.8)';
-          barDivs[barTwo].style.backgroundColor = 'rgba(66, 134, 244, 0.8)';
-        }, 50);
-      }, i * 50);
-    }
+    visualizeSwapping(animation, 80);
   };
 
   return (
@@ -150,6 +127,7 @@ function Board() {
         <button onClick={handleQuickSort}>Quick Sort</button>
         <button onClick={handleHeapSort}>Heap Sort</button>
         <button onClick={handleSelectionSort}>Selection Sort</button>
+        <button onClick={handleInsertionSort}>Insertion Sort</button>
         <button onClick={handleBubbleSort}>Bubble Sort</button>
       </div>
       <div

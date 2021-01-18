@@ -17,31 +17,28 @@ function mergeSortHelper(mainArr, auxiliaryArr, start, end) {
 function doMerge(mainArr, auxiliaryArr, start, mid, end) {
   let left = start;
   let right = mid + 1;
-  let currSwapIdx = start;
+  let currChangeIdx = start;
 
   while (left <= mid && right <= end) {
     if (auxiliaryArr[left] <= auxiliaryArr[right]) {
-      mainArr[currSwapIdx++] = auxiliaryArr[left++];
+      mainArr[currChangeIdx++] = auxiliaryArr[left++];
     } else {
-      animation.push([currSwapIdx, auxiliaryArr[right]]);
+      let shiftMid = mid,
+        shiftRight = right;
 
-      let newMid = mid,
-        newRight = right;
-
-      while (newRight > currSwapIdx) {
-        animation.push([newRight--, auxiliaryArr[newMid--], 0]);
+      while (shiftRight > currChangeIdx) {
+        animation.push([shiftRight--, auxiliaryArr[shiftMid--], true]);
       }
-
-      mainArr[currSwapIdx++] = auxiliaryArr[right++];
+      animation.push([currChangeIdx, auxiliaryArr[right]]);
+      mainArr[currChangeIdx++] = auxiliaryArr[right++];
     }
   }
-
   while (left <= mid) {
-    mainArr[currSwapIdx++] = auxiliaryArr[left++];
+    mainArr[currChangeIdx++] = auxiliaryArr[left++];
   }
   while (right <= end) {
-    animation.push([currSwapIdx, auxiliaryArr[right]]);
-    mainArr[currSwapIdx++] = auxiliaryArr[right++];
+    animation.push([currChangeIdx, auxiliaryArr[right]]);
+    mainArr[currChangeIdx++] = auxiliaryArr[right++];
   }
 }
 
