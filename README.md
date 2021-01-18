@@ -12,7 +12,7 @@
 
 This is a web application built using the react framework for visualizing the several sorting algorithms. It implements Merge Sort, Quick Sort, Heap Sort, Selection Sort, Insertion Sort and Bubble Sort.
 
-## This app is Live at: [https://pathfinding-visualizer-ybmlk.netlify.app/](https://pathfinding-visualizer-ybmlk.netlify.app/)
+## This app is Live at: [https://sorting-visualizer-ybmlk.netlify.app/](https://sorting-visualizer-ybmlk.netlify.app/)
 
 ---
 
@@ -50,4 +50,3 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 ## Author
 
 Yonatan Melka
-
