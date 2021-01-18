@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import bubbleSort from '../algorithms/bubbleSort';
 import mergeSort from '../algorithms/mergeSort';
+import quickSort from '../algorithms/quickSort';
 
 const NUM_OF_BARS = 200;
 const MIN_HEIGHT = 5;
@@ -65,18 +66,51 @@ function Board() {
     }
   };
 
+  const handleQuickSort = () => {
+    // const animation = mergeSort(barArray.slice());
+    // setBarArray(barArray.sort((a, b) => a - b));
+    // let k = 0;
+    // for (let i = 0; i < animation.length; i++) {
+    //   const barDivs = document.querySelectorAll('.array-bar');
+    //   const [currBar, currHeight, currSpeed] = animation[i];
+    //   let speed = 50;
+    //   if (currSpeed !== 0) {
+    //     k++;
+    //   }
+    //   setTimeout(() => {
+    //     barDivs[currBar].style.height = `${currHeight}px`;
+    //     if (currSpeed !== 0) {
+    //       barDivs[currBar].style.backgroundColor = 'turquoise';
+    //       setTimeout(() => {
+    //         barDivs[currBar].style.backgroundColor = 'black';
+    //       }, speed);
+    //     }
+    //   }, k * speed);
+    // }
+    setBarArray(quickSort(barArray.slice()));
+  };
+
   return (
     <div
-      style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+      style={{
+        height: '90vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+      }}
     >
-      <button onClick={handleBubbleSort}>Bubble Sort</button>
-      <button onClick={handleMergeSort}>Merge Sort</button>
+      <div style={{ marginBottom: 40 }}>
+        <button onClick={handleBubbleSort}>Bubble Sort</button>
+        <button onClick={handleMergeSort}>Merge Sort</button>
+        <button onClick={handleQuickSort}>Quick Sort</button>
+      </div>
       <div
         style={{
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'flex-end',
-          marginBottom: 100,
+          // marginBottom: 100,
         }}
       >
         {barArray.map((height, idx) => {
