@@ -1,6 +1,8 @@
+const animation = [];
+
 function mergeSort(mainArr) {
   mergeSortHelper(mainArr, mainArr.slice(), 0, mainArr.length - 1);
-  return mainArr;
+  return animation;
 }
 
 function mergeSortHelper(mainArr, auxiliaryArr, start, end) {
@@ -21,6 +23,15 @@ function doMerge(mainArr, auxiliaryArr, start, mid, end) {
     if (auxiliaryArr[left] <= auxiliaryArr[right]) {
       mainArr[currSwapIdx++] = auxiliaryArr[left++];
     } else {
+      animation.push([currSwapIdx, auxiliaryArr[right]]);
+
+      let newMid = mid,
+        newRight = right;
+
+      while (newRight > currSwapIdx) {
+        animation.push([newRight--, auxiliaryArr[newMid--], 0]);
+      }
+
       mainArr[currSwapIdx++] = auxiliaryArr[right++];
     }
   }
@@ -29,9 +40,9 @@ function doMerge(mainArr, auxiliaryArr, start, mid, end) {
     mainArr[currSwapIdx++] = auxiliaryArr[left++];
   }
   while (right <= end) {
+    animation.push([currSwapIdx, auxiliaryArr[right]]);
     mainArr[currSwapIdx++] = auxiliaryArr[right++];
   }
 }
 
 export default mergeSort;
-// console.log(mergeSort([4, 32, -10, -3, 10]));
