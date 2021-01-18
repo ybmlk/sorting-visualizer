@@ -5,7 +5,7 @@ import quickSort from '../algorithms/quickSort';
 
 const NUM_OF_BARS = 200;
 const MIN_HEIGHT = 5;
-const MAX_HEIGHT = 500;
+const MAX_HEIGHT = 550;
 
 function Board() {
   const [barArray, setBarArray] = useState([]);
@@ -30,11 +30,11 @@ function Board() {
         const temp = barDivs[barOne].style.height;
         barDivs[barOne].style.height = barDivs[barTwo].style.height;
         barDivs[barTwo].style.height = temp;
-        barDivs[barOne].style.backgroundColor = 'turquoise';
-        barDivs[barTwo].style.backgroundColor = 'blue';
+        barDivs[barOne].style.backgroundColor = 'rgba(78, 216, 96, 0.8)';
+        barDivs[barTwo].style.backgroundColor = 'rgba(219, 57, 57, 0.8)';
         setTimeout(() => {
-          barDivs[barOne].style.backgroundColor = 'black';
-          barDivs[barTwo].style.backgroundColor = 'black';
+          barDivs[barOne].style.backgroundColor = 'rgba(66, 134, 244, 0.8)';
+          barDivs[barTwo].style.backgroundColor = 'rgba(66, 134, 244, 0.8)';
         }, 10);
       }, i * 10);
     }
@@ -57,37 +57,37 @@ function Board() {
       setTimeout(() => {
         barDivs[currBar].style.height = `${currHeight}px`;
         if (currSpeed !== 0) {
-          barDivs[currBar].style.backgroundColor = 'turquoise';
+          barDivs[currBar].style.backgroundColor = 'rgba(219, 57, 57, 0.8)';
           setTimeout(() => {
-            barDivs[currBar].style.backgroundColor = 'black';
+            barDivs[currBar].style.backgroundColor = 'rgba(66, 134, 244, 0.8)';
           }, speed);
         }
       }, k * speed);
     }
   };
 
+  // todo: color bars that are being compared
+  // todo: color sorted bars
+  // todo: color the pivot
   const handleQuickSort = () => {
-    // const animation = mergeSort(barArray.slice());
-    // setBarArray(barArray.sort((a, b) => a - b));
-    // let k = 0;
-    // for (let i = 0; i < animation.length; i++) {
-    //   const barDivs = document.querySelectorAll('.array-bar');
-    //   const [currBar, currHeight, currSpeed] = animation[i];
-    //   let speed = 50;
-    //   if (currSpeed !== 0) {
-    //     k++;
-    //   }
-    //   setTimeout(() => {
-    //     barDivs[currBar].style.height = `${currHeight}px`;
-    //     if (currSpeed !== 0) {
-    //       barDivs[currBar].style.backgroundColor = 'turquoise';
-    //       setTimeout(() => {
-    //         barDivs[currBar].style.backgroundColor = 'black';
-    //       }, speed);
-    //     }
-    //   }, k * speed);
-    // }
-    setBarArray(quickSort(barArray.slice()));
+    const animation = quickSort(barArray.slice());
+    setBarArray(barArray.sort((a, b) => a - b));
+    for (let i = 0; i < animation.length; i++) {
+      const barDivs = document.querySelectorAll('.array-bar');
+      const [barOne, barTwo] = animation[i];
+      setTimeout(() => {
+        const temp = barDivs[barOne].style.height;
+        barDivs[barOne].style.height = barDivs[barTwo].style.height;
+        barDivs[barTwo].style.height = temp;
+        barDivs[barOne].style.backgroundColor = 'rgba(78, 216, 96, 0.8)';
+        barDivs[barTwo].style.backgroundColor = 'rgba(219, 57, 57, 0.8)';
+        setTimeout(() => {
+          barDivs[barOne].style.backgroundColor = 'rgba(66, 134, 244, 0.8)';
+          barDivs[barTwo].style.backgroundColor = 'rgba(66, 134, 244, 0.8)';
+        }, 50);
+      }, i * 50);
+    }
+    // setBarArray(quickSort(barArray.slice()));
   };
 
   return (
@@ -118,7 +118,7 @@ function Board() {
             <div
               key={idx}
               className='array-bar'
-              style={{ height, width: 5, backgroundColor: 'black', margin: 1 }}
+              style={{ height, width: 5, backgroundColor: 'rgba(66, 134, 244, 0.8)', margin: 0.5 }}
             ></div>
           );
         })}

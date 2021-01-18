@@ -1,6 +1,8 @@
+const animation = [];
+
 function quickSort(arr) {
   quickSortHelper(arr, 0, arr.length - 1);
-  return arr;
+  return animation;
 }
 
 function quickSortHelper(arr, left, right) {
@@ -23,6 +25,7 @@ function partition(arr, left, right) {
     }
     if (left <= right) {
       swap(arr, left, right);
+      animation.push([left, right]);
       left++;
       right--;
     }
