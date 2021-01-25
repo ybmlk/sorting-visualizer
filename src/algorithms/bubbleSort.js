@@ -5,18 +5,17 @@ function bubbleSort(arr) {
     let noSwap = true; // for optimization
     for (let j = 0; j < i; j++) {
       if (arr[j] > arr[j + 1]) {
-        animation.push([j, j + 1]);
-        swap(j, j + 1, arr);
+        swap(j, j + 1);
         noSwap = false;
       }
     }
     if (noSwap) break;
   }
   return animation;
-}
-
-function swap(i, j, arr) {
-  [arr[i], arr[j]] = [arr[j], arr[i]];
+  function swap(i, j) {
+    animation.push([i, j]);
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
 }
 
 export default bubbleSort;

@@ -1,86 +1,38 @@
-import React, { useState, useEffect } from 'react';
-import Head from './Head';
-
-import selectionSort from '../algorithms/selectionSort';
-import insertionSort from '../algorithms/insertionSort';
-import bubbleSort from '../algorithms/bubbleSort';
-import mergeSort from '../algorithms/mergeSort';
-import quickSort from '../algorithms/quickSort';
-import heapSort from '../algorithms/heapSort';
-
-import visualizeSwapping from '../animation/visualizeSwapping';
-import visualizeMerging from '../animation/visualizeMerging';
-
-const NUM_OF_BARS = 150;
-const MIN_HEIGHT = 5;
-const MAX_HEIGHT = 550;
+import React, { useEffect, useContext } from 'react';
+import Context from '../Context';
+import colors from '../styles/colors';
+import useGenerateArray from '../hooks/useGenerateArray';
 
 function Board() {
-  const [barArray, setBarArray] = useState([]);
+  const { barArray, barCount, setBarCount } = useContext(Context);
+  const generateNewArray = useGenerateArray();
 
   useEffect(() => {
     generateNewArray();
   }, []);
 
-  const generateNewArray = () => {
-    const newArray = [];
-    for (let i = 0; i < NUM_OF_BARS; i++) {
-      const randHeight = Math.floor(Math.random() * (MAX_HEIGHT - MIN_HEIGHT + 1)) + MIN_HEIGHT;
-      newArray.push(randHeight);
-    }
-    setBarArray(newArray);
-  };
-
-  const handleMergeSort = () => {
-    const animation = mergeSort(barArray.slice());
-    visualizeMerging(animation, 50, setBarArray, barArray);
-  };
-
-  const handleInsertionSort = () => {
-    const animation = insertionSort(barArray.slice());
-    visualizeMerging(animation, 10, setBarArray, barArray);
-  };
-
-  const handleBubbleSort = () => {
-    const animation = bubbleSort(barArray.slice());
-    visualizeSwapping(animation, 10, setBarArray, barArray);
-  };
-
-  // todo: color the pivot
-  const handleQuickSort = () => {
-    const animation = quickSort(barArray.slice());
-    visualizeSwapping(animation, 60, setBarArray, barArray);
-  };
-
-  const handleHeapSort = () => {
-    const animation = heapSort(barArray.slice());
-    visualizeSwapping(animation, 30, setBarArray, barArray);
-  };
-
-  const handleSelectionSort = () => {
-    const animation = selectionSort(barArray.slice());
-    visualizeSwapping(animation, 80, setBarArray, barArray);
-  };
-
-  const actions = {
-    generateNewArray,
-    handleMergeSort,
-    handleQuickSort,
-    handleHeapSort,
-    handleSelectionSort,
-    handleInsertionSort,
-    handleBubbleSort,
-  };
-
   return (
     <div>
-      <Head {...actions} />
+      <div>
+        <input
+          type='range'
+          min={10}
+          max={250}
+          value={barCount}
+          onChange={(e) => {
+            setBarCount(+e.target.value);
+            generateNewArray();
+          }}
+        />
+      </div>
       <div
         style={{
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'flex-end',
-          height: 580,
+          height: 600,
+          width: 1050,
+          margin: 'auto',
         }}
       >
         {barArray.map((height, idx) => {
@@ -88,7 +40,13 @@ function Board() {
             <div
               key={idx}
               className='array-bar'
-              style={{ height, width: 5, backgroundColor: 'rgba(66, 134, 244, 0.8)', margin: 0.5 }}
+              style={{
+                height,
+                width: 800 / barCount,
+                backgroundColor: colors.blue,
+                marginLeft: 1,
+                color: 'transparent',
+              }}
             ></div>
           );
         })}
