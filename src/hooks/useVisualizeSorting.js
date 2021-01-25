@@ -42,7 +42,7 @@ function useVisualizeSorting() {
         break;
       case 'Selection':
         animation = selectionSort(barArray.slice());
-        speed = (1 / barCount) * 8500;
+        speed = (1 / barCount) * 800;
         break;
       default:
         break;
