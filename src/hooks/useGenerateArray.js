@@ -5,8 +5,6 @@ import Context from '../Context';
 const MIN_HEIGHT = 5;
 const MAX_HEIGHT = 580;
 
-// todo: color bars that are being compared
-// todo: color sorted bars
 function useGenerateArray() {
   const { barCount, setBarArray, setIsAnimating, timerList } = useContext(Context);
 

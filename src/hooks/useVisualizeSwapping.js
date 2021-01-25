@@ -3,8 +3,6 @@ import colors from '../styles/colors';
 import Context from '../Context';
 import useVisualizeEnding from './useVisualizeEnding';
 
-// todo: color bars that are being compared
-// todo: color sorted bars
 function useVisualizeSwapping() {
   const { setIsAnimating, setTimerList } = useContext(Context);
   const handleEnding = useVisualizeEnding();
