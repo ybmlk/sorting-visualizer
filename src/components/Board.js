@@ -4,37 +4,17 @@ import colors from '../styles/colors';
 import useGenerateArray from '../hooks/useGenerateArray';
 
 function Board() {
-  const { barArray, barCount, setBarCount } = useContext(Context);
+  const { barArray, barCount } = useContext(Context);
   const generateNewArray = useGenerateArray();
 
   useEffect(() => {
     generateNewArray();
+    // eslint-disable-next-line
   }, []);
 
   return (
-    <div>
-      <div>
-        <input
-          type='range'
-          min={10}
-          max={250}
-          value={barCount}
-          onChange={(e) => {
-            setBarCount(+e.target.value);
-            generateNewArray();
-          }}
-        />
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'flex-end',
-          height: 600,
-          width: 1050,
-          margin: 'auto',
-        }}
-      >
+    <div id='board'>
+      <div className='container'>
         {barArray.map((height, idx) => {
           return (
             <div
@@ -45,7 +25,6 @@ function Board() {
                 width: 800 / barCount,
                 backgroundColor: colors.blue,
                 marginLeft: 1,
-                color: 'transparent',
               }}
             ></div>
           );

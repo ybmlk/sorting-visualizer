@@ -6,18 +6,21 @@ function useVisualizeEnding() {
   const { setBarArray, setIsAnimating } = useContext(Context);
 
   function handleEnding() {
-    setBarArray((prev) => prev.sort((a, b) => a - b));
-    setIsAnimating(false);
-
     const barDivs = document.querySelectorAll('.array-bar');
+    const speed = 7;
 
     for (let i = 0; i < barDivs.length; i++) {
       setTimeout(() => {
         barDivs[i].style.backgroundColor = colors.green;
-      }, i * 7);
+      }, i * speed);
     }
+
+    setTimeout(() => {
+      setBarArray((prev) => prev.sort((a, b) => a - b));
+      setIsAnimating(false);
+    }, barDivs.length * speed);
   }
-  return handleEnding
+  return handleEnding;
 }
 
 export default useVisualizeEnding;

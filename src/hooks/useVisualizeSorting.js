@@ -12,7 +12,7 @@ import {
 } from '../algorithms';
 
 function useVisualizeSorting() {
-  const { barArray } = useContext(Context);
+  const { barArray, barCount } = useContext(Context);
   const handleMerging = useVisualizeMerging();
   const handleSwapping = useVisualizeSwapping();
 
@@ -22,27 +22,27 @@ function useVisualizeSorting() {
     switch (sortType) {
       case 'Merge':
         animation = mergeSort(barArray.slice());
-        speed = 50;
+        speed = (1 / barCount) * 6500;
         break;
       case 'Insertion':
         animation = insertionSort(barArray.slice());
-        speed = 10;
+        speed = (1 / barCount) * 800;
         break;
       case 'Bubble':
         animation = bubbleSort(barArray.slice());
-        speed = 10;
+        speed = (1 / barCount) * 900;
         break;
       case 'Quick':
         animation = quickSort(barArray.slice());
-        speed = 60;
+        speed = (1 / barCount) * 7500;
         break;
       case 'Heap':
         animation = heapSort(barArray.slice());
-        speed = 30;
+        speed = (1 / barCount) * 2500;
         break;
       case 'Selection':
         animation = selectionSort(barArray.slice());
-        speed = 80;
+        speed = (1 / barCount) * 8500;
         break;
       default:
         break;
